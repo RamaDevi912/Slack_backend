@@ -14,6 +14,24 @@ datasource db {
 // User and Authentication
 // ============================================
 
+// 🔥 DEFINE ENUMS FIRST
+
+enum UserStatus {
+  ONLINE
+  AWAY
+  DO_NOT_DISTURB
+  OFFLINE
+}
+
+enum AccountStatus {
+  ACTIVE
+  BANNED
+  DEACTIVATED
+}
+
+
+
+
 model User {
   id             String     @id @default(cuid())
   email          String     @unique
@@ -23,31 +41,34 @@ model User {
   lastName       String?
   profilePicture String?
   bio            String?
+
   status         UserStatus @default(OFFLINE)
+
+ 
+  accountStatus  AccountStatus @default(ACTIVE)
+
+ 
+  lastActiveAt   DateTime?
+
+ 
+  banReason      String?
+
   customStatus   String?
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
 
-  // Relations
   workspaceMembers       WorkspaceMember[]
   channelMembers         ChannelMember[]
   messages               Message[]
   directMessages         DirectMessage[]
-  sentDirectMessages     DirectMessage[]       @relation("SentDirectMessages")
-  receivedDirectMessages DirectMessage[]       @relation("ReceivedDirectMessages")
+  sentDirectMessages     DirectMessage[] @relation("SentDirectMessages")
+  receivedDirectMessages DirectMessage[] @relation("ReceivedDirectMessages")
   callParticipants       CallParticipant[]
   notificationSettings   NotificationSetting[]
-  adminWorkspaces        Workspace[]           @relation("AdminWorkspaces")
+  adminWorkspaces        Workspace[] @relation("AdminWorkspaces")
   platformAdmin          PlatformAdmin?
   MessageReply           MessageReply[]
   MessageReaction        MessageReaction[]
-}
-
-enum UserStatus {
-  ONLINE
-  AWAY
-  DO_NOT_DISTURB
-  OFFLINE
 }
 
 // ============================================

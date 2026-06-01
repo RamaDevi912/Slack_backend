@@ -1,13 +1,12 @@
-import { Request, Response, NextFunction } from "express";
-import { Server as SocketIOServer } from "socket.io";
+import { NextFunction, Request, Response } from 'express';
+import { Server as SocketIOServer } from 'socket.io';
+import { Channel, PlatformAdmin, User, WorkspaceMember } from '@prisma/client';
 
 export interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-    workspaceId: string;
-    role: string;
-  };
+  user?: User;
+  workspaceMember?: WorkspaceMember;
+  channel?: Channel;
+  platformAdmin?: PlatformAdmin;
   io?: SocketIOServer;
 }
 
@@ -39,9 +38,7 @@ export interface CreateChannelRequest {
 }
 
 export interface JWTPayload {
-  id: string;
-  email: string;
-  iat: number;
+  userId: string;
   exp: number;
 }
 

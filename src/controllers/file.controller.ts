@@ -1,121 +1,138 @@
-import { Request, Response } from 'express'
-import fs from 'fs'
-import path from 'path'
-import prisma from '../config/database'
+import { NextFunction, Response } from 'express';
+import fileService from '../services/file.service.js';
+import { AuthRequest } from '../types/index.js';
 
-// Auth request type
-interface AuthRequest extends Request {
-  user?: { id: string }
-  file?: Express.Multer.File
-}
-
-// Upload file
-export const uploadFile = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Upload file
+ */
+export const uploadFile = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+
     if (!req.file) {
-      res.status(400).json({ message: 'No file provided' })
-      return
+      res.status(400).json({ message: 'No file provided' });
+      return;
     }
 
-    const file = req.file
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
-    }
-
-    const fileUpload = await prisma.fileUpload.create({
-      data: {
-        filename: file.filename,
-        originalName: file.originalname,
-        mimeType: file.mimetype,
-        size: file.size,
-        uploadedBy: userId,
-        filePath: file.path,
-      },
-    })
+    const file = await fileService.uploadFile(req.user.id, req.file);
 
     res.status(201).json({
+      success: true,
       message: 'File uploaded successfully',
-      file: {
-        id: fileUpload.id,
-        filename: fileUpload.filename,
-        originalName: fileUpload.originalName,
-        size: fileUpload.size,
-        mimeType: fileUpload.mimeType,
-        uploadedAt: fileUpload.uploadedAt,
-      },
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to upload file', error: error.message })
+      data: file,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Download file
-export const downloadFile = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Download file
+ */
+export const downloadFile = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { fileId } = req.params
+    const { fileId } = req.params;
 
-    const file = await prisma.fileUpload.findUnique({
-      where: { id: fileId },
-    })
+    const { file, stream } = await fileService.downloadFile(fileId);
 
-    if (!file) {
-      res.status(404).json({ message: 'File not found' })
-      return
-    }
+    res.setHeader('Content-Type', file.mimeType);
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="${file.originalName}"`,
+    );
 
-    const filePath = path.join(process.cwd(), file.filePath)
-
-    if (!fs.existsSync(filePath)) {
-      res.status(404).json({ message: 'File not found on disk' })
-      return
-    }
-
-    res.download(filePath, file.originalName)
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to download file', error: error.message })
+    stream.pipe(res);
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Delete file
-export const deleteFile = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Get file details
+ */
+export const getFile = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { fileId } = req.params
-    const userId = req.user?.id
+    const { fileId } = req.params;
 
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
-    }
+    const file = await fileService.getFile(fileId);
 
-    const file = await prisma.fileUpload.findUnique({
-      where: { id: fileId },
-    })
-
-    if (!file) {
-      res.status(404).json({ message: 'File not found' })
-      return
-    }
-
-    if (file.uploadedBy !== userId) {
-      res.status(403).json({ message: 'Access denied' })
-      return
-    }
-
-    const filePath = path.join(process.cwd(), file.filePath)
-
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath)
-    }
-
-    await prisma.fileUpload.delete({
-      where: { id: fileId },
-    })
-
-    res.json({ message: 'File deleted successfully' })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to delete file', error: error.message })
+    res.json({
+      success: true,
+      data: file,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
+
+/**
+ * Delete file
+ */
+export const deleteFile = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+
+    const { fileId } = req.params;
+
+    await fileService.deleteFile(fileId, req.user.id);
+
+    res.json({
+      success: true,
+      message: 'File deleted successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Delete multiple files
+ */
+export const deleteMultipleFiles = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+
+    const { fileIds } = req.body;
+
+    const result = await fileService.deleteMultipleFiles(
+      fileIds,
+      req.user.id,
+    );
+
+    res.json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

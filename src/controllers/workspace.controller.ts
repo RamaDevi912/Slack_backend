@@ -1,252 +1,258 @@
-import { Request, Response } from 'express'
-import prisma from '../config/database'
-import { v4 as uuidv4 } from 'uuid'
+import { NextFunction, Response } from 'express';
+import { WorkspaceRole } from '@prisma/client';
+import { workspaceService } from '../services/index.service.js';
+import { AuthRequest } from '../types/index.js';
 
-// Auth Request
-interface AuthRequest extends Request {
-  user?: { id: string }
-}
-
-// Create workspace
-export const createWorkspace = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Create new workspace
+ */
+export const createWorkspace = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { name, description } = req.body
-    const userId = req.user?.id
+    const { name, description, slug } = req.body;
+    const userId = req.user?.id;
 
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
-    }
-
-    if (!name) {
-      res.status(400).json({ message: 'Workspace name required' })
-      return
-    }
-
-    const slug =
-      name.toLowerCase().replace(/\s+/g, '-') +
-      '-' +
-      uuidv4().substring(0, 6)
-
-    const workspace = await prisma.workspace.create({
-      data: {
-        name,
-        slug,
-        description,
-        createdBy: userId,
-      },
-    })
-
-    await prisma.workspaceMember.create({
-      data: {
-        workspaceId: workspace.id,
-        userId,
-        role: 'OWNER',
-      },
-    })
-
-    await prisma.channel.create({
-      data: {
-        workspaceId: workspace.id,
-        name: 'general',
-        description: 'General discussion',
-        isPrivate: false,
-        createdBy: userId,
-      },
-    })
+    const workspace = await workspaceService.createWorkspace({
+      name,
+      description,
+      slug,
+      createdBy: userId!,
+    });
 
     res.status(201).json({
-      message: 'Workspace created',
-      workspace,
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to create workspace', error: error.message })
+      success: true,
+      statusCode: 201,
+      message: 'Workspace created successfully',
+      data: workspace,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Get user workspaces
-export const getUserWorkspaces = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Get user's workspaces
+ */
+export const getUserWorkspaces = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const userId = req.user?.id
+    const userId = req.user?.id;
 
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
-    }
+    const workspaces = await workspaceService.getUserWorkspaces(userId!);
 
-    const memberships = await prisma.workspaceMember.findMany({
-      where: { userId },
-      include: {
-        workspace: {
-          include: {
-            members: true,
-            channels: true,
-          },
-        },
-      },
-    })
-
-    const workspaces = memberships.map((m) => m.workspace)
-
-    res.json(workspaces)
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch workspaces', error: error.message })
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Workspaces retrieved successfully',
+      data: workspaces,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Get single workspace
-export const getWorkspace = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Get single workspace
+ */
+export const getWorkspace = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId } = req.params
+    const { workspaceId } = req.params;
 
-    const workspace = await prisma.workspace.findUnique({
-      where: { id: workspaceId },
-      include: {
-        members: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                email: true,
-                username: true,
-                firstName: true,
-                lastName: true,
-                status: true,
-              },
-            },
-          },
-        },
-        channels: {
-          where: { archivedAt: null },
-          include: {
-            members: true,
-          },
-        },
-      },
-    })
+    const workspace = await workspaceService.getWorkspaceById(workspaceId);
 
-    if (!workspace) {
-      res.status(404).json({ message: 'Workspace not found' })
-      return
-    }
-
-    res.json(workspace)
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch workspace', error: error.message })
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Workspace retrieved successfully',
+      data: workspace,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Update workspace
-export const updateWorkspace = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Update workspace
+ */
+export const updateWorkspace = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId } = req.params
-    const { name, description, logo } = req.body
+    const { workspaceId } = req.params;
+    const updates = req.body;
 
-    const workspace = await prisma.workspace.update({
-      where: { id: workspaceId },
-      data: {
-        ...(name && { name }),
-        ...(description && { description }),
-        ...(logo && { logo }),
-      },
-    })
+    const workspace = await workspaceService.updateWorkspace(
+      workspaceId,
+      updates,
+    );
 
-    res.json({
-      message: 'Workspace updated',
-      workspace,
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to update workspace', error: error.message })
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Workspace updated successfully',
+      data: workspace,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Add member
-export const addMember = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Add member to workspace
+ */
+export const addMember = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId } = req.params
-    const { userId, role = 'MEMBER' } = req.body
+    const { workspaceId } = req.params;
+    const { userId: targetUserId } = req.body;
+    const userId = req.user?.id;
 
-    if (!userId) {
-      res.status(400).json({ message: 'User ID required' })
-      return
-    }
-
-    const member = await prisma.workspaceMember.create({
-      data: {
-        workspaceId,
-        userId,
-        role,
-      },
-    })
+    const member = await workspaceService.addMember(
+      workspaceId,
+      userId!,
+      targetUserId,
+    );
 
     res.status(201).json({
-      message: 'Member added',
-      member,
-    })
-  } catch (error: any) {
-    if (error.code === 'P2002') {
-      res.status(409).json({ message: 'User already a member' })
-      return
-    }
-
-    res.status(500).json({ message: 'Failed to add member', error: error.message })
+      success: true,
+      statusCode: 201,
+      message: 'Member added to workspace',
+      data: member,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Remove member
-export const removeMember = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Remove member from workspace
+ */
+export const removeMember = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId, memberId } = req.params
+    const { workspaceId, memberId } = req.params;
 
-    await prisma.workspaceMember.delete({
-      where: {
-        workspaceId_userId: {
-          workspaceId,
-          userId: memberId,
-        },
-      },
-    })
+    await workspaceService.removeMember(workspaceId, memberId);
 
-    res.json({ message: 'Member removed' })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to remove member', error: error.message })
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Member removed from workspace',
+      data: null,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Invite to workspace
-export const inviteToWorkspace = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Get workspace members
+ */
+export const getMembers = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId } = req.params
-    const { email, role = 'MEMBER' } = req.body
-    const userId = req.user?.id
+    const { workspaceId } = req.params;
 
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
-    }
+    const members = await workspaceService.getMembers(workspaceId);
 
-    if (!email) {
-      res.status(400).json({ message: 'Email required' })
-      return
-    }
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Members retrieved successfully',
+      data: members,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+/**
+ * Update member role
+ */
+export const updateMemberRole = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { workspaceId, memberId } = req.params;
+    const { role } = req.body;
 
-    const invitation = await prisma.workspaceInvitation.create({
-      data: {
-        workspaceId,
-        email,
-        role,
-        invitedBy: userId,
-        expiresAt,
-      },
-    })
+    const member = await workspaceService.updateMemberRole(
+      workspaceId,
+      memberId,
+      role,
+    );
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Member role updated successfully',
+      data: member,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Invite user to workspace
+ */
+export const inviteToWorkspace = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { workspaceId } = req.params;
+    const { email, role = 'MEMBER' } = req.body;
+    const invitedBy = req.user?.id;
+
+    const invitation = await workspaceService.inviteUser({
+      workspaceId,
+      email,
+      role: role as WorkspaceRole,
+      invitedBy: invitedBy!,
+    });
 
     res.status(201).json({
-      message: 'Invitation sent',
-      invitation,
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to invite user', error: error.message })
+      success: true,
+      statusCode: 201,
+      message: 'Invitation sent successfully',
+      data: invitation,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
+

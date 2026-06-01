@@ -1,0 +1,1925 @@
+[
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/controllers/call.controller.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 162,
+        "message": "This line has a length of 101. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/controllers/channel.controller.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 18,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 48,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 74,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 103,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 131,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 160,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 188,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 214,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 240,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 266,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 292,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 343,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/controllers/directMessage.controller.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 148,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 172,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 197,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 222,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/controllers/notification.controller.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 27,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 53,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 75,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 101,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 122,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 143,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/controllers/search.controller.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 36,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 72,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 108,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 144,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/controllers/workspace.controller.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 22,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 48,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 131,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 244,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/index.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 49,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 108,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 111,
+        "message": "Unexpected console statement.",
+        "ruleId": "no-console"
+      },
+      {
+        "line": 112,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 117,
+        "message": "Unexpected console statement.",
+        "ruleId": "no-console"
+      },
+      {
+        "line": 122,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 129,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 130,
+        "message": "Unexpected console statement.",
+        "ruleId": "no-console"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/middleware/auth.middleware.ts",
+    "errors": [
+      {
+        "line": 6,
+        "message": "'express' import is duplicated.",
+        "ruleId": "no-duplicate-imports"
+      }
+    ],
+    "warnings": [
+      {
+        "line": 9,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 10,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 11,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 12,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 47,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 75,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 98,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 148,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 173,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/middleware/error.middleware.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 8,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/middleware/morgan.middleware.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 9,
+        "message": "This line has a length of 118. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/middleware/validation.middleware.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 11,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/admin.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 23,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 23,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 23,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 31,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 31,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 31,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 37,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 38,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 39,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/auth.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 16,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 16,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 17,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 17,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "This line has a length of 104. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "This line has a length of 102. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/call.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 18,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 18,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 18,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/channel.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 28,
+        "message": "This line has a length of 109. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 31,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 31,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 31,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 32,
+        "message": "This line has a length of 118. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 32,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 32,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 32,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 32,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 35,
+        "message": "This line has a length of 131. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 35,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 35,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 35,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 35,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 38,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 39,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 40,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 44,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 44,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 45,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 45,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 48,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 48,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 48,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 52,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 53,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 54,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 59,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 60,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 61,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/directMessage.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 24,
+        "message": "This line has a length of 128. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "This line has a length of 104. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 32,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 32,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 36,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 36,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 37,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 37,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/file.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 19,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 67,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 73,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 73,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 75,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 75,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 77,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 77,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/message.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 25,
+        "message": "This line has a length of 107. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 29,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 30,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 30,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "This line has a length of 112. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 34,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 34,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 37,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 37,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 38,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 38,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 41,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 41,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 41,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/notification.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 18,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 18,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 23,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 23,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 26,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 27,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 27,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/search.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 19,
+        "message": "This line has a length of 107. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 19,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 19,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 19,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 19,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "This line has a length of 101. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 20,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "This line has a length of 107. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 21,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "This line has a length of 120. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 22,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/routes/workspace.routes.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 25,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 28,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 33,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 34,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 36,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 37,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 43,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 44,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 46,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 47,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 52,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 53,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 55,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 61,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 62,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 64,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 65,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/admin.service.ts",
+    "errors": [
+      {
+        "line": 211,
+        "message": "'error' is defined but never used.",
+        "ruleId": "@typescript-eslint/no-unused-vars"
+      },
+      {
+        "line": 272,
+        "message": "'error' is defined but never used.",
+        "ruleId": "@typescript-eslint/no-unused-vars"
+      }
+    ],
+    "warnings": [
+      {
+        "line": 126,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 127,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/auth.service.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 119,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 175,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/channel.service.ts",
+    "errors": [
+      {
+        "line": 460,
+        "message": "'error' is defined but never used.",
+        "ruleId": "@typescript-eslint/no-unused-vars"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/directMessage.service.ts",
+    "errors": [
+      {
+        "line": 208,
+        "message": "'error' is defined but never used.",
+        "ruleId": "@typescript-eslint/no-unused-vars"
+      }
+    ],
+    "warnings": [
+      {
+        "line": 96,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 97,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/file.service.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 15,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 28,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/message.service.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 35,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 71,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 72,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 310,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/notification.service.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 117,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/search.service.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 36,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 37,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 40,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 114,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 115,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 194,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 195,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 307,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 308,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 311,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/services/workspace.service.ts",
+    "errors": [
+      {
+        "line": 28,
+        "message": "Unexpected constant condition.",
+        "ruleId": "no-constant-condition"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/utils/auth.ts",
+    "errors": [
+      {
+        "line": 24,
+        "message": "'error' is defined but never used.",
+        "ruleId": "@typescript-eslint/no-unused-vars"
+      }
+    ],
+    "warnings": [
+      {
+        "line": 5,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/utils/constants.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 261,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 263,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 264,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 265,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 266,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 267,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 268,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/utils/errors.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 69,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 71,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/utils/logger.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 44,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 55,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 55,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 55,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/utils/response.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 4,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 11,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 43,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 62,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 75,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 88,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/utils/slug.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 9,
+        "message": "This line has a length of 103. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/validations/workspace.validation.ts",
+    "errors": [],
+    "warnings": [
+      {
+        "line": 21,
+        "message": "This line has a length of 109. Maximum allowed is 100.",
+        "ruleId": "max-len"
+      }
+    ]
+  },
+  {
+    "filePath": "/home/ramadevi/Documents/Slack/slack_backend/src/websocket/socketHandler.ts",
+    "errors": [
+      {
+        "line": 50,
+        "message": "'error' is defined but never used.",
+        "ruleId": "@typescript-eslint/no-unused-vars"
+      }
+    ],
+    "warnings": [
+      {
+        "line": 8,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 15,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 18,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 24,
+        "message": "Promise returned in function argument where a void return was expected.",
+        "ruleId": "@typescript-eslint/no-misused-promises"
+      },
+      {
+        "line": 59,
+        "message": "Unexpected console statement.",
+        "ruleId": "no-console"
+      },
+      {
+        "line": 64,
+        "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+        "ruleId": "@typescript-eslint/no-floating-promises"
+      },
+      {
+        "line": 68,
+        "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+        "ruleId": "@typescript-eslint/no-floating-promises"
+      },
+      {
+        "line": 73,
+        "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+        "ruleId": "@typescript-eslint/no-floating-promises"
+      },
+      {
+        "line": 79,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 84,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 90,
+        "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+        "ruleId": "@typescript-eslint/no-floating-promises"
+      },
+      {
+        "line": 93,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 95,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 103,
+        "message": "Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator.",
+        "ruleId": "@typescript-eslint/prefer-nullish-coalescing"
+      },
+      {
+        "line": 108,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 118,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 128,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 138,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 142,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 151,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 155,
+        "message": "Forbidden non-null assertion.",
+        "ruleId": "@typescript-eslint/no-non-null-assertion"
+      },
+      {
+        "line": 163,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 167,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 171,
+        "message": "Unexpected any. Specify a different type.",
+        "ruleId": "@typescript-eslint/no-explicit-any"
+      },
+      {
+        "line": 181,
+        "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+        "ruleId": "@typescript-eslint/no-floating-promises"
+      },
+      {
+        "line": 194,
+        "message": "Unexpected console statement.",
+        "ruleId": "no-console"
+      },
+      {
+        "line": 197,
+        "message": "Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator.",
+        "ruleId": "@typescript-eslint/no-floating-promises"
+      }
+    ]
+  }
+]

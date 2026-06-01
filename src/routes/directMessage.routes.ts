@@ -1,38 +1,39 @@
-import { Router } from 'express'
+import { Router } from 'express';
 import {
   authenticate,
   hasWorkspaceAccess,
-} from '../middleware/auth.middleware'
-
+} from '../middleware/auth.middleware.js';
+import { validateRequest } from '../middleware/validation.middleware.js';
+import { directMessageValidation } from '../validations/index.js';
 import {
-  getOrCreateDMRoom,
-  getDMRooms,
-  sendDirectMessage,
-  getDMMessages,
-  updateDirectMessage,
-  deleteDirectMessage,
   addDMReaction,
+  deleteDirectMessage,
+  getDMMessages,
+  getDMRooms,
+  getOrCreateDMRoom,
   removeDMReaction,
-} from '../controllers/directMessage.controller'
+  sendDirectMessage,
+  updateDirectMessage,
+} from '../controllers/directMessage.controller.js';
 
-const router = Router({ mergeParams: true })
+const router = Router({ mergeParams: true });
 
 //  Protected Routes
 
 // DM Rooms
-router.post('/rooms', authenticate, hasWorkspaceAccess, getOrCreateDMRoom)
-router.get('/rooms', authenticate, hasWorkspaceAccess, getDMRooms)
+router.post('/rooms', authenticate, hasWorkspaceAccess, validateRequest(directMessageValidation.createRoom), getOrCreateDMRoom);
+router.get('/rooms', authenticate, hasWorkspaceAccess, getDMRooms);
 
 // Messages
-router.post('/:roomId', authenticate, sendDirectMessage)
-router.get('/:roomId', authenticate, getDMMessages)
+router.post('/:roomId', authenticate, validateRequest(directMessageValidation.send), sendDirectMessage);
+router.get('/:roomId', authenticate, getDMMessages);
 
 // Message actions
-router.patch('/:messageId', authenticate, updateDirectMessage)
-router.delete('/:messageId', authenticate, deleteDirectMessage)
+router.patch('/:messageId', authenticate, updateDirectMessage);
+router.delete('/:messageId', authenticate, deleteDirectMessage);
 
 // Reactions
-router.post('/:messageId/reactions', authenticate, addDMReaction)
-router.delete('/:messageId/reactions', authenticate, removeDMReaction)
+router.post('/:messageId/reactions', authenticate, addDMReaction);
+router.delete('/:messageId/reactions', authenticate, removeDMReaction);
 
-export default router
+export default router;

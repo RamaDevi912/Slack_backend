@@ -1,428 +1,283 @@
-import { Request, Response } from 'express'
-import prisma from '../config/database'
+import { NextFunction, Response } from 'express';
+import messageService from '../services/message.service.js';
+import { AuthRequest } from '../types/index.js';
 
-// Auth Request
-interface AuthRequest extends Request {
-  user?: { id: string }
-}
-
-// Create message
-export const createMessage = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Send message
+ */
+export const createMessage = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { channelId } = req.params
-    const { content, attachments = [] } = req.body
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    if (!content && attachments.length === 0) {
-      res.status(400).json({ message: 'Content or attachments required' })
-      return
+    const { channelId } = req.params;
+    const { content, attachments } = req.body;
+
+    if (!content && (!attachments || attachments.length === 0)) {
+      res.status(400).json({ message: 'Content or attachment required' });
+      return;
     }
 
-    const message = await prisma.message.create({
-      data: {
-        channelId,
-        userId,
-        content,
-        attachments,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            profilePicture: true,
-            firstName: true,
-            lastName: true,
-          },
-        },
-        reactions: true,
-      },
-    })
+    const message = await messageService.sendMessage(channelId, req.user.id, {
+      content,
+      attachments,
+    });
 
-    // 🔥 OPTIMIZED (avoid repeated DB calls)
-    const channel = await prisma.channel.findUnique({
-      where: { id: channelId },
-      select: { workspaceId: true },
-    })
-
-    const members = await prisma.channelMember.findMany({
-      where: { channelId },
-    })
-
-    for (const member of members) {
-      if (member.userId !== userId) {
-        const workspaceMember = await prisma.workspaceMember.findUnique({
-          where: {
-            workspaceId_userId: {
-              workspaceId: channel!.workspaceId,
-              userId: member.userId,
-            },
-          },
-        })
-
-        if (!workspaceMember) continue
-
-        await prisma.unreadChannel.upsert({
-          where: {
-            workspaceMemberId_channelId: {
-              workspaceMemberId: workspaceMember.id,
-              channelId,
-            },
-          },
-          update: {
-            unreadCount: { increment: 1 },
-          },
-          create: {
-            workspaceMemberId: workspaceMember.id,
-            channelId,
-            unreadCount: 1,
-          },
-        })
-      }
-    }
-
-    res.status(201).json({ message: 'Message created', data: message })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to create message', error: error.message })
+    res.status(201).json({
+      success: true,
+      message: 'Message sent successfully',
+      data: message,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Get messages
-export const getMessages = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Get messages
+ */
+export const getMessages = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { channelId } = req.params
-    const { limit = '50', offset = '0' } = req.query
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
 
-    const messages = await prisma.message.findMany({
-      where: {
-        channelId,
-        deletedAt: null,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            profilePicture: true,
-            firstName: true,
-            lastName: true,
-          },
-        },
-        reactions: true,
-        replies: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                username: true,
-                profilePicture: true,
-              },
-            },
-            reactions: true,
-          },
-        },
-      },
-      orderBy: { createdAt: 'desc' },
-      take: parseInt(limit as string),
-      skip: parseInt(offset as string),
-    })
+    const { channelId } = req.params;
+    const { page = '1', limit = '20' } = req.query;
 
-    res.json(messages.reverse())
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch messages', error: error.message })
+    const result = await messageService.getMessages(channelId, req.user.id, {
+      page: parseInt(page as string),
+      limit: parseInt(limit as string),
+    });
+
+    res.json({
+      success: true,
+      data: result.messages,
+      pagination: result.pagination,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Update message
-export const updateMessage = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Update message
+ */
+export const updateMessage = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { messageId } = req.params
-    const { content } = req.body
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    const message = await prisma.message.findUnique({
-      where: { id: messageId },
-    })
+    const { messageId } = req.params;
+    const { content } = req.body;
 
-    if (!message) {
-      res.status(404).json({ message: 'Message not found' })
-      return
-    }
+    const message = await messageService.updateMessage(
+      messageId,
+      req.user.id,
+      { content },
+    );
 
-    if (message.userId !== userId) {
-      res.status(403).json({ message: 'Only owner can edit' })
-      return
-    }
-
-    const updated = await prisma.message.update({
-      where: { id: messageId },
-      data: {
-        content,
-        editedAt: new Date(),
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            profilePicture: true,
-          },
-        },
-        reactions: true,
-      },
-    })
-
-    res.json({ message: 'Updated', data: updated })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to update', error: error.message })
+    res.json({
+      success: true,
+      message: 'Message updated',
+      data: message,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Delete message
-export const deleteMessage = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Delete message
+ */
+export const deleteMessage = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { messageId } = req.params
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    const message = await prisma.message.findUnique({
-      where: { id: messageId },
-    })
+    const { messageId } = req.params;
 
-    if (!message) {
-      res.status(404).json({ message: 'Message not found' })
-      return
-    }
+    await messageService.deleteMessage(messageId, req.user.id);
 
-    if (message.userId !== userId) {
-      res.status(403).json({ message: 'Only owner can delete' })
-      return
-    }
-
-    await prisma.message.update({
-      where: { id: messageId },
-      data: { deletedAt: new Date() },
-    })
-
-    res.json({ message: 'Deleted' })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to delete', error: error.message })
+    res.json({
+      success: true,
+      message: 'Message deleted',
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Add reaction
-export const addReaction = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Add reaction
+ */
+export const addReaction = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { messageId } = req.params
-    const { emoji } = req.body
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    if (!emoji) {
-      res.status(400).json({ message: 'Emoji required' })
-      return
-    }
+    const { messageId } = req.params;
+    const { emoji } = req.body;
 
-    const reaction = await prisma.messageReaction.create({
-      data: {
-        messageId,
-        userId,
-        emoji,
-      },
-    })
+    const reaction = await messageService.addReaction(
+      messageId,
+      req.user.id,
+      emoji,
+    );
 
-    res.status(201).json({ message: 'Reaction added', data: reaction })
-  } catch (error: any) {
-    if (error.code === 'P2002') {
-      res.status(409).json({ message: 'Already reacted' })
-      return
-    }
-    res.status(500).json({ message: 'Failed to react', error: error.message })
+    res.status(201).json({
+      success: true,
+      message: 'Reaction added',
+      data: reaction,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Remove reaction
-export const removeReaction = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Remove reaction
+ */
+export const removeReaction = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { messageId } = req.params
-    const { emoji } = req.body
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    await prisma.messageReaction.deleteMany({
-      where: {
-        messageId,
-        userId,
-        emoji,
-      },
-    })
+    const { reactionId } = req.params;
 
-    res.json({ message: 'Reaction removed' })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to remove reaction', error: error.message })
+    await messageService.removeReaction(reactionId, req.user.id);
+
+    res.json({
+      success: true,
+      message: 'Reaction removed',
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Create reply
-export const createReply = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Reply
+ */
+export const createReply = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { messageId } = req.params
-    const { content, attachments = [] } = req.body
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    if (!content && attachments.length === 0) {
-      res.status(400).json({ message: 'Reply content required' })
-      return
-    }
+    const { messageId } = req.params;
+    const { content } = req.body;
 
-    const reply = await prisma.messageReply.create({
-      data: {
-        messageId,
-        userId,
-        content,
-        attachments,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            profilePicture: true,
-          },
-        },
-        reactions: true,
-      },
-    })
+    const reply = await messageService.replyToMessage(
+      messageId,
+      req.user.id,
+      { content },
+    );
 
-    res.status(201).json({ message: 'Reply created', data: reply })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to create reply', error: error.message })
+    res.status(201).json({
+      success: true,
+      message: 'Reply created',
+      data: reply,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Get thread replies
-export const getThreadReplies = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Thread
+ */
+export const getThreadReplies = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const { messageId } = req.params
-    const { limit = '50', offset = '0' } = req.query
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
 
-    const replies = await prisma.messageReply.findMany({
-      where: {
-        messageId,
-        deletedAt: null,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            profilePicture: true,
-          },
-        },
-        reactions: true,
-      },
-      orderBy: { createdAt: 'asc' },
-      take: parseInt(limit as string),
-      skip: parseInt(offset as string),
-    })
+    const { messageId } = req.params;
 
-    res.json(replies)
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch replies', error: error.message })
+    const thread = await messageService.getThread(
+      messageId,
+      req.user.id,
+    );
+
+    res.json({
+      success: true,
+      data: thread,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-// Mark channel as read
-export const markChannelAsRead = async (req: AuthRequest, res: Response): Promise<void> => {
+/**
+ * Mark channel as read
+ */
+export const markChannelAsRead = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { channelId } = req.params
-    const userId = req.user?.id
-
-    if (!userId) {
-      res.status(401).json({ message: 'Unauthorized' })
-      return
+    if (!req.user?.id) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
     }
 
-    const latestMessage = await prisma.message.findFirst({
-      where: { channelId, deletedAt: null },
-      orderBy: { createdAt: 'desc' },
-      select: { id: true },
-    })
+    const { channelId } = req.params;
 
-    if (!latestMessage) {
-      res.json({ message: 'No messages' })
-      return
-    }
+    const member = await messageService.markChannelAsRead(channelId, req.user.id);
 
-    const channel = await prisma.channel.findUnique({
-      where: { id: channelId },
-      select: { workspaceId: true },
-    })
-
-    const workspaceMember = await prisma.workspaceMember.findUnique({
-      where: {
-        workspaceId_userId: {
-          workspaceId: channel!.workspaceId,
-          userId,
-        },
-      },
-    })
-
-    if (!workspaceMember) {
-      res.status(404).json({ message: 'Workspace member not found' })
-      return
-    }
-
-    await prisma.unreadChannel.upsert({
-      where: {
-        workspaceMemberId_channelId: {
-          workspaceMemberId: workspaceMember.id,
-          channelId,
-        },
-      },
-      update: {
-        unreadCount: 0,
-        lastReadMessageId: latestMessage.id,
-        lastReadAt: new Date(),
-      },
-      create: {
-        workspaceMemberId: workspaceMember.id,
-        channelId,
-        unreadCount: 0,
-        lastReadMessageId: latestMessage.id,
-        lastReadAt: new Date(),
-      },
-    })
-
-    res.json({ message: 'Marked as read' })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to mark as read', error: error.message })
+    res.json({
+      success: true,
+      message: 'Channel marked as read',
+      data: member,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};

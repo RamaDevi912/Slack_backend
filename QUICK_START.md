@@ -1,54 +1,89 @@
-# Quick Start Guide
+# Quick Start Guide & Installation
+
+## 📋 Prerequisites
+
+- **Node.js**: 16.0.0 or higher
+- **npm**: 7.0.0 or higher
+- **PostgreSQL**: 12.0 or higher
+- **Git**: For version control
 
 ## 🚀 5-Minute Setup
 
-### Prerequisites
-
-- Node.js 16+ installed
-- PostgreSQL 12+ running locally
-- npm or yarn package manager
-
-### Installation
-
-1. **Navigate to project directory**
+### 1. Navigate to Project
 
 ```bash
 cd slack_backend
 ```
 
-2. **Install dependencies**
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-3. **Configure environment**
+### 3. Configure Environment
 
 ```bash
-# Copy example file
+# Copy example configuration
 cp .env.example .env
 
-# Edit .env with your PostgreSQL credentials
-# DATABASE_URL="postgresql://postgres:password@localhost:5432/slack_db"
+# Edit .env with your settings
 ```
 
-4. **Setup database**
+**Example .env**:
+
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/slack_db"
+PORT=3001
+NODE_ENV=development
+JWT_SECRET="your-secure-key-here"
+FRONTEND_URL="http://localhost:3000"
+```
+
+### 4. Setup Database
 
 ```bash
-# Create database schema
-npm run prisma:push
-
 # Generate Prisma client
 npm run prisma:generate
 
-# Seed with demo data
+# Run migrations
+npm run prisma:migrate
+
+# Seed demo data (optional)
 npm run prisma:seed
 ```
 
-5. **Start development server**
+### 5. Start Server
 
 ```bash
 npm run dev
+```
+
+Server runs at: `http://localhost:3001`
+
+## ✅ Verify Installation
+
+Test health endpoint:
+
+```bash
+curl http://localhost:3001/health
+```
+
+## 📚 Available Commands
+
+| Command                  | Purpose                           |
+| ------------------------ | --------------------------------- |
+| `npm run dev`            | Start dev server with auto-reload |
+| `npm run build`          | Build for production              |
+| `npm start`              | Run production build              |
+| `npm run type-check`     | Check TypeScript                  |
+| `npm run lint`           | Run ESLint                        |
+| `npm run prisma:migrate` | Run DB migrations                 |
+| `npm run prisma:seed`    | Seed demo data                    |
+| `npm run prisma:studio`  | Open database UI                  |
+
+npm run dev
+
 ```
 
 ✅ Server running at `http://localhost:3001`
@@ -62,13 +97,16 @@ After seeding, use these to test:
 ### Platform Admin
 
 ```
+
 Email: admin@slack.com
 Password: Admin@123
+
 ```
 
 ### Regular Users
 
 ```
+
 Email: john@slack.com
 Password: User@123
 
@@ -77,7 +115,8 @@ Password: User@123
 
 Email: bob@slack.com
 Password: User@123
-```
+
+````
 
 ---
 
@@ -99,7 +138,7 @@ npm start            # Start server
 
 # Utility
 npm run prisma:generate         # Regenerate client
-```
+````
 
 ---
 

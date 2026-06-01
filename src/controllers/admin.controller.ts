@@ -1,403 +1,280 @@
-import { Request, Response } from 'express'
-import prisma from '../config/database'
-import { Prisma } from '@prisma/client'
+import { NextFunction, Request, Response } from 'express';
+import adminService from '../services/admin.service.js';
 
-/* =======================
-   Get platform statistics
-======================= */
-export const getPlatformStats = async (_req: Request, res: Response): Promise<void> => {
+/**
+ * Dashboard stats
+ */
+export const getPlatformStats = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const totalUsers = await prisma.user.count()
-    const totalWorkspaces = await prisma.workspace.count()
-    const totalChannels = await prisma.channel.count()
-    const totalMessages = await prisma.message.count()
-    const totalDirectMessages = await prisma.directMessage.count()
+    const stats = await adminService.getDashboardStats();
 
-    const activeCalls = await prisma.call.count({
-      where: {
-        status: {
-          in: ['INITIATED', 'RINGING', 'ACTIVE'],
-        },
-      },
-    })
-
-    const recentUsers = await prisma.user.findMany({
-      take: 10,
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        email: true,
-        username: true,
-        createdAt: true,
-      },
-    })
-
-    res.json({
-      totalUsers,
-      totalWorkspaces,
-      totalChannels,
-      totalMessages,
-      totalDirectMessages,
-      activeCalls,
-      recentUsers,
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch stats', error: error.message })
+    res.status(200).json({
+      success: true,
+      data: stats,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Get all users
-======================= */
-export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Get users
+ */
+export const getAllUsers = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { limit = '50', offset = '0', search } = req.query
+    const users = await adminService.getUserStats();
 
-    const where: Prisma.UserWhereInput = {}
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
-    if (search) {
-      where.OR = [
-        { email: { contains: String(search), mode: 'insensitive' } },
-        { username: { contains: String(search), mode: 'insensitive' } },
-      ]
-    }
+/**
+ * Get workspaces
+ */
+export const getAllWorkspaces = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const workspaces = await adminService.getWorkspaceStats();
 
-    const users = await prisma.user.findMany({
-      where,
-      select: {
-        id: true,
-        email: true,
-        username: true,
-        firstName: true,
-        lastName: true,
-        status: true,
-        createdAt: true,
-        _count: {
-          select: {
-            workspaceMembers: true,
-            messages: true,
-          },
-        },
-      },
-      take: parseInt(limit as string),
-      skip: parseInt(offset as string),
-      orderBy: { createdAt: 'desc' },
-    })
+    res.status(200).json({
+      success: true,
+      data: workspaces,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
-    const total = await prisma.user.count({ where })
+/**
+ * Get audit logs
+ */
+export const getAuditLogs = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { page = '1', limit = '20' } = req.query;
 
-    res.json({
-      users,
-      total,
+    const logs = await adminService.getAuditLogs({
+      page: parseInt(page as string),
       limit: parseInt(limit as string),
-      offset: parseInt(offset as string),
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch users', error: error.message })
-  }
-}
+    });
 
-/* =======================
-   Get all workspaces
-======================= */
-export const getAllWorkspaces = async (req: Request, res: Response): Promise<void> => {
+    res.status(200).json({
+      success: true,
+      data: logs,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Ban user
+ */
+export const banUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { limit = '50', offset = '0', search } = req.query
+    const { userId } = req.params;
+    const { reason } = req.body;
 
-    const where: Prisma.WorkspaceWhereInput = {}
+    const user = await adminService.banUser(userId, reason);
 
-    if (search) {
-      where.OR = [
-        { name: { contains: String(search), mode: 'insensitive' } },
-        { slug: { contains: String(search), mode: 'insensitive' } },
-      ]
-    }
-
-    const workspaces = await prisma.workspace.findMany({
-      where,
-      include: {
-        _count: {
-          select: {
-            members: true,
-            channels: true,
-          },
-        },
-        admin: {
-          select: {
-            id: true,
-            username: true,
-            email: true,
-          },
-        },
-      },
-      take: parseInt(limit as string),
-      skip: parseInt(offset as string),
-      orderBy: { createdAt: 'desc' },
-    })
-
-    const total = await prisma.workspace.count({ where })
-
-    res.json({
-      workspaces,
-      total,
-      limit: parseInt(limit as string),
-      offset: parseInt(offset as string),
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch workspaces', error: error.message })
+    res.status(200).json({
+      success: true,
+      message: 'User banned',
+      data: user,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Get all channels
-======================= */
-export const getAllChannels = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Unban user
+ */
+export const unbanUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { limit = '50', offset = '0', workspaceId } = req.query
+    const { userId } = req.params;
 
-    const where: Prisma.ChannelWhereInput = {}
+    const user = await adminService.unbanUser(userId);
 
-    if (workspaceId) {
-      where.workspaceId = String(workspaceId)
-    }
-
-    const channels = await prisma.channel.findMany({
-      where,
-      include: {
-        workspace: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        _count: {
-          select: {
-            members: true,
-            messages: true,
-          },
-        },
-      },
-      take: parseInt(limit as string),
-      skip: parseInt(offset as string),
-      orderBy: { createdAt: 'desc' },
-    })
-
-    const total = await prisma.channel.count({ where })
-
-    res.json({
-      channels,
-      total,
-      limit: parseInt(limit as string),
-      offset: parseInt(offset as string),
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch channels', error: error.message })
+    res.status(200).json({
+      success: true,
+      message: 'User unbanned',
+      data: user,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Activity analytics
-======================= */
-export const getActivityAnalytics = async (req: Request, res: Response): Promise<void> => {
+/**
+ * System health
+ */
+export const getSystemHealth = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { days = '30' } = req.query
-    const daysNumber = parseInt(days as string)
+    const health = await adminService.getSystemHealth();
 
-    const startDate = new Date(Date.now() - daysNumber * 24 * 60 * 60 * 1000)
-
-    const messageActivity = await prisma.message.groupBy({
-      by: ['createdAt'],
-      where: { createdAt: { gte: startDate } },
-      _count: true,
-      orderBy: { createdAt: 'asc' },
-    })
-
-    const dmActivity = await prisma.directMessage.groupBy({
-      by: ['createdAt'],
-      where: { createdAt: { gte: startDate } },
-      _count: true,
-      orderBy: { createdAt: 'asc' },
-    })
-
-    const callActivity = await prisma.call.groupBy({
-      by: ['createdAt'],
-      where: { createdAt: { gte: startDate } },
-      _count: true,
-      orderBy: { createdAt: 'asc' },
-    })
-
-    const newUsers = await prisma.user.count({
-      where: { createdAt: { gte: startDate } },
-    })
-
-    res.json({
-      messageActivity,
-      dmActivity,
-      callActivity,
-      newUsers,
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch analytics', error: error.message })
+    res.status(200).json({
+      success: true,
+      data: health,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Get user details
-======================= */
-export const getUserDetails = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Get user details
+ */
+export const getUserDetails = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { userId } = req.params
+    const { userId } = req.params;
+    const user = await adminService.getUserDetails(userId);
 
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: {
-        workspaceMembers: { include: { workspace: true } },
-        channelMembers: { include: { channel: true } },
-        _count: {
-          select: {
-            messages: true,
-            directMessages: true,
-            callParticipants: true,
-          },
-        },
-      },
-    })
-
-    if (!user) {
-      res.status(404).json({ message: 'User not found' })
-      return
-    }
-
-    res.json(user)
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch user details', error: error.message })
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Promote user
-======================= */
-export const promoteToAdmin = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Promote user to platform admin
+ */
+export const promoteToAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { userId } = req.params
+    const { userId } = req.params;
+    const admin = await adminService.promoteToAdmin(userId);
 
-    const admin = await prisma.platformAdmin.create({
-      data: {
-        userId,
-        role: 'ADMIN',
-      },
-    })
-
-    res.status(201).json({
-      message: 'User promoted to admin',
-      admin,
-    })
-  } catch (error: any) {
-    if (error.code === 'P2002') {
-      res.status(409).json({ message: 'User is already an admin' })
-      return
-    }
-    res.status(500).json({ message: 'Failed to promote user', error: error.message })
+    res.status(200).json({
+      success: true,
+      message: 'User promoted to platform admin successfully',
+      data: admin,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Remove admin
-======================= */
-export const removeAdmin = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Remove platform admin privileges
+ */
+export const removeAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { userId } = req.params
+    const { userId } = req.params;
+    const result = await adminService.removeAdmin(userId);
 
-    await prisma.platformAdmin.delete({
-      where: { userId },
-    })
-
-    res.json({ message: 'Admin privileges removed' })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to remove admin', error: error.message })
+    res.status(200).json({
+      success: true,
+      message: 'Platform admin privileges removed successfully',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-/* =======================
-   Audit logs
-======================= */
-export const getAuditLogs = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Get workspace details
+ */
+export const getWorkspaceDetails = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId } = req.params
-    const { limit = '50', offset = '0' } = req.query
+    const { workspaceId } = req.params;
+    const workspace = await adminService.getWorkspaceDetails(workspaceId);
 
-    const logs = await prisma.auditLog.findMany({
-      where: { workspaceId },
-      take: parseInt(limit as string),
-      skip: parseInt(offset as string),
-      orderBy: { createdAt: 'desc' },
-    })
-
-    const total = await prisma.auditLog.count({
-      where: { workspaceId },
-    })
-
-    res.json({
-      logs,
-      total,
-      limit: parseInt(limit as string),
-      offset: parseInt(offset as string),
-    })
-  } catch (error: any) {
-    res.status(500).json({ message: 'Failed to fetch audit logs', error: error.message })
+    res.status(200).json({
+      success: true,
+      data: workspace,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
 
-  //  Get workspace details
-
-export const getWorkspaceDetails = async (req: Request, res: Response): Promise<void> => {
+/**
+ * Get all channels
+ */
+export const getAllChannels = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
   try {
-    const { workspaceId } = req.params
+    const channels = await adminService.getAllChannels();
 
-    const workspace = await prisma.workspace.findUnique({
-      where: { id: workspaceId },
-      include: {
-        members: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                username: true,
-                email: true,
-                status: true,
-              },
-            },
-          },
-        },
-        channels: {
-          include: {
-            _count: {
-              select: {
-                members: true,
-                messages: true,
-              },
-            },
-          },
-        },
-        _count: {
-          select: {
-            members: true,
-            channels: true,
-          },
-        },
-      },
-    })
-
-    if (!workspace) {
-      res.status(404).json({ message: 'Workspace not found' })
-      return
-    }
-
-    res.json(workspace)
-  } catch (error: any) {
-    res.status(500).json({
-      message: 'Failed to fetch workspace details',
-      error: error.message,
-    })
+    res.status(200).json({
+      success: true,
+      data: channels,
+    });
+  } catch (error) {
+    next(error);
   }
-}
+};
+
+/**
+ * Get activity analytics
+ */
+export const getActivityAnalytics = async (
+  _req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const analytics = await adminService.getActivityAnalytics();
+
+    res.status(200).json({
+      success: true,
+      data: analytics,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

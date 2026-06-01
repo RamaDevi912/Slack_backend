@@ -1,100 +1,140 @@
-import express, { Request, Response, NextFunction } from 'express'
-import cors from 'cors'
-import dotenv from 'dotenv'
-import http from 'http'
-import prisma from './config/database'
-import { setupWebSocket } from './websocket/socketHandler'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// Load env
-dotenv.config()
+import dotenv from 'dotenv';
+// Load environment variables FIRST before any database or route imports!
+dotenv.config();
 
-// Routes
-import authRoutes from './routes/auth.routes'
-import workspaceRoutes from './routes/workspace.routes'
-import channelRoutes from './routes/channel.routes'
-import messageRoutes from './routes/message.routes'
-import directMessageRoutes from './routes/directMessage.routes'
-import callRoutes from './routes/call.routes'
-import searchRoutes from './routes/search.routes'
-import notificationRoutes from './routes/notification.routes'
-import adminRoutes from './routes/admin.routes'
-import fileRoutes from './routes/file.routes'
+import express, { Request, Response } from 'express';
+import http from 'http';
+import cors from 'cors';
+import path from 'path';
+import prisma from './config/database.js';
+import { setupWebSocket } from './websocket/socketHandler.js';
 
-const app = express()
-const PORT: number = Number(process.env.PORT) || 3001
+// Import Middlewares
+import {
+  apiLimiter,
+  authLimiter,
+  messageLimiter,
+  searchLimiter,
+  uploadLimiter,
+} from './middleware/rate-limiter.middleware.js';
+import { notFoundMiddleware } from './middleware/notFound.middleware.js';
+import { errorHandler } from './middleware/error.middleware.js';
+import morganMiddleware from './middleware/morgan.middleware.js';
+
+// Import Routes
+import authRoutes from './routes/auth.routes.js';
+import workspaceRoutes from './routes/workspace.routes.js';
+import channelRoutes from './routes/channel.routes.js';
+import messageRoutes from './routes/message.routes.js';
+import directMessageRoutes from './routes/directMessage.routes.js';
+import callRoutes from './routes/call.routes.js';
+import searchRoutes from './routes/search.routes.js';
+import notificationRoutes from './routes/notification.routes.js';
+import adminRoutes from './routes/admin.routes.js';
+import fileRoutes from './routes/file.routes.js';
+
+const app = express();
+const PORT: number = Number(process.env.PORT) || 3001;
 
 // Create HTTP server
-const server = http.createServer(app)
+const server = http.createServer(app);
 
-// Setup WebSocket
-const io = setupWebSocket(server)
-app.set('io', io)
+// Setup Socket.io WebSocket connections
+const io = setupWebSocket(server);
+app.set('io', io);
 
-// Middleware
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ limit: '50mb', extended: true }))
+// Global Middlewares
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+  }),
+);
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(morganMiddleware);
 
-// Static files
-app.use('/uploads', express.static('uploads'))
+// Base API rate limiting
+app.use('/api/', apiLimiter);
 
-// Health check
-app.get('/health', (req: Request, res: Response) => {
-  res.json({ status: 'ok', timestamp: new Date() })
-})
+// Serve uploaded files statically
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Routes
-app.use('/api/auth', authRoutes)
-app.use('/api/workspaces', workspaceRoutes)
-app.use('/api/workspaces/:workspaceId/channels', channelRoutes)
-app.use('/api/workspaces/:workspaceId/channels/:channelId/messages', messageRoutes)
-app.use('/api/workspaces/:workspaceId/direct-messages', directMessageRoutes)
-app.use('/api/calls', callRoutes)
-app.use('/api/search/:workspaceId', searchRoutes)
-app.use('/api/notifications', notificationRoutes)
-app.use('/api/admin', adminRoutes)
-app.use('/api/files', fileRoutes)
+// Health check endpoints
+app.get('/health', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    statusCode: 200,
+    message: 'Service is healthy',
+    timestamp: new Date().toISOString(),
+  });
+});
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    statusCode: 200,
+    message: 'Service is healthy',
+    timestamp: new Date().toISOString(),
+  });
+});
 
-// Error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err)
-  res.status(err.status || 500).json({
-    message: err.message || 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err : {},
-  })
-})
+// Secure API Routes Mounting
+app.use('/api/auth', authLimiter, authRoutes);
+app.use('/api/workspaces', workspaceRoutes);
+app.use('/api/workspaces/:workspaceId/channels', channelRoutes);
+app.use(
+  '/api/workspaces/:workspaceId/channels/:channelId/messages',
+  messageLimiter,
+  messageRoutes,
+);
+app.use(
+  '/api/workspaces/:workspaceId/direct-messages',
+  messageLimiter,
+  directMessageRoutes,
+);
+app.use('/api/calls', callRoutes);
+app.use('/api/search/:workspaceId', searchLimiter, searchRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/files', uploadLimiter, fileRoutes);
 
-// 404 handler
-app.use((req: Request, res: Response) => {
-  res.status(404).json({ message: 'Route not found' })
-})
+// Intercept unhandled routes
+app.use(notFoundMiddleware);
 
-// Start server
+// Global operational errors logger and response formatter
+app.use(errorHandler);
+
+// Start server listening
 server.listen(PORT, async () => {
   try {
-    await prisma.$queryRaw`SELECT 1`
-    console.log('✓ Database connected')
+    await prisma.$queryRaw`SELECT 1`;
+    console.log('✓ Database connected');
   } catch (error: any) {
-    console.error('✗ Database connection failed:', error.message)
-    process.exit(1)
+    console.error('✗ Database connection failed:', error.message);
+    process.exit(1);
   }
 
   console.log(`
 ╔════════════════════════════════════════╗
 ║   Slack Backend API Server Running     ║
 ╠════════════════════════════════════════╣
-║ Port:     ${PORT}                      
-║ Env:      ${process.env.NODE_ENV}           
-║ WebSocket: Ready                       
+║ Port:      ${PORT}                     ║
+║ Env:       ${process.env.NODE_ENV || 'development'}               ║
+║ WebSocket: Ready                       ║
 ╚════════════════════════════════════════╝
-  `)
-})
+  `);
+});
 
-// Graceful shutdown
+// Graceful application shutdown
 process.on('SIGINT', async () => {
-  console.log('\nShutting down gracefully...')
-  await prisma.$disconnect()
-  process.exit(0)
-})
+  console.log('\nShutting down gracefully...');
+  await prisma.$disconnect();
+  process.exit(0);
+});
 
-export default server
+export default server;

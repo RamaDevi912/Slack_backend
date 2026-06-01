@@ -1,0 +1,1 @@
+{"version":3,"file":"notFound.middleware.js","sourceRoot":"","sources":["../../src/middleware/notFound.middleware.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,aAAa,EAAE,MAAM,oBAAoB,CAAC;AAEnD;;GAEG;AACH,MAAM,CAAC,MAAM,kBAAkB,GAAG,CAChC,GAAY,EACZ,IAAc,EACd,IAAkB,EACZ,EAAE;IACR,IAAI,CAAC,IAAI,aAAa,CAAC,SAAS,GAAG,CAAC,MAAM,IAAI,GAAG,CAAC,WAAW,EAAE,CAAC,CAAC,CAAC;AACpE,CAAC,CAAC"}
