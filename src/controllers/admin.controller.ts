@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import adminService from '../services/admin.service.js';
+import * as adminService from '../services/admin.service.js';
+
 
 /**
  * Dashboard stats

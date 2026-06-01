@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import directMessageService from '../services/directMessage.service.js';
+import * as directMessageService from '../services/directMessage.service.js';
 import { AuthRequest } from '../types/index.js';
 
 /**

@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import callService from '../services/call.service.js';
+import * as callService from '../services/call.service.js';
 import { AuthRequest } from '../types/index.js';
 
 /**

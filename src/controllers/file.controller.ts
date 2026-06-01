@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import fileService from '../services/file.service.js';
+import * as fileService from '../services/file.service.js';
 import { AuthRequest } from '../types/index.js';
 
 /**

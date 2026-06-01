@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import searchService from '../services/search.service.js';
+import * as searchService from '../services/search.service.js';
 import { AuthRequest } from '../types/index.js';
 
 /**

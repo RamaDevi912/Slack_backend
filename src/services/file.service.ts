@@ -6,127 +6,104 @@ import {
   ValidationError,
 } from '../utils/errors.js';
 
+// ── Constants ──
+
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
-export class FileService {
-  /**
-   * Validate file
-   */
-  validateFile(file: any) {
-    if (!file) {
-      throw new ValidationError('File required');
-    }
+// ── Service Functions ──
 
-    if (file.size > MAX_FILE_SIZE) {
-      throw new ValidationError('File too large');
-    }
+export const validateFile = (file: any) => {
+  if (!file) {
+    throw new ValidationError('File required');
   }
 
-  /**
-   * Upload file
-   */
-  async uploadFile(userId: string, file: any) {
-    this.validateFile(file);
+  if (file.size > MAX_FILE_SIZE) {
+    throw new ValidationError('File too large');
+  }
+};
 
-    return prisma.fileUpload.create({
-      data: {
-        filename: file.filename,
-        originalName: file.originalname,
-        mimeType: file.mimetype,
-        size: file.size,
-        uploadedBy: userId,
-        filePath: file.path,
-      },
-    });
+export const uploadFile = async (userId: string, file: any) => {
+  validateFile(file);
+
+  return prisma.fileUpload.create({
+    data: {
+      filename: file.filename,
+      originalName: file.originalname,
+      mimeType: file.mimetype,
+      size: file.size,
+      uploadedBy: userId,
+      filePath: file.path,
+    },
+  });
+};
+
+export const getFile = async (fileId: string) => {
+  const file = await prisma.fileUpload.findUnique({
+    where: { id: fileId },
+  });
+
+  if (!file) {
+    throw new NotFoundError('File');
   }
 
-  /**
-   * Get single file
-   */
-  async getFile(fileId: string) {
-    const file = await prisma.fileUpload.findUnique({
-      where: { id: fileId },
-    });
+  return file;
+};
 
-    if (!file) {
-      throw new NotFoundError('File');
-    }
+export const downloadFile = async (fileId: string) => {
+  const file = await getFile(fileId);
 
-    return file;
+  if (!fs.existsSync(file.filePath)) {
+    throw new NotFoundError('File not found on disk');
   }
 
-  /**
-   * Download file
-   */
-  async downloadFile(fileId: string) {
-    const file = await this.getFile(fileId);
+  const stream = fs.createReadStream(file.filePath);
 
-    if (!fs.existsSync(file.filePath)) {
-      throw new NotFoundError('File not found on disk');
-    }
+  return { file, stream };
+};
 
-    const stream = fs.createReadStream(file.filePath);
+export const deleteFile = async (fileId: string, userId: string) => {
+  const file = await getFile(fileId);
 
-    return { file, stream };
+  if (file.uploadedBy !== userId) {
+    throw new AuthenticationError('Not allowed');
   }
 
-  /**
-   * Delete file
-   */
-  async deleteFile(fileId: string, userId: string) {
-    const file = await this.getFile(fileId);
+  if (fs.existsSync(file.filePath)) {
+    fs.unlinkSync(file.filePath);
+  }
 
-    if (file.uploadedBy !== userId) {
-      throw new AuthenticationError('Not allowed');
-    }
+  return prisma.fileUpload.delete({
+    where: { id: fileId },
+  });
+};
 
-    // delete from disk
+export const getFiles = async () => {
+  return prisma.fileUpload.findMany({
+    orderBy: { uploadedAt: 'desc' },
+  });
+};
+
+export const deleteMultipleFiles = async (fileIds: string[], userId: string) => {
+  const files = await prisma.fileUpload.findMany({
+    where: { id: { in: fileIds } },
+  });
+
+  const invalid = files.some((f) => f.uploadedBy !== userId);
+
+  if (invalid) {
+    throw new AuthenticationError('Not allowed');
+  }
+
+  for (const file of files) {
     if (fs.existsSync(file.filePath)) {
       fs.unlinkSync(file.filePath);
     }
-
-    return prisma.fileUpload.delete({
-      where: { id: fileId },
-    });
   }
 
-  /**
-   * Get all files (admin/debug)
-   */
-  async getFiles() {
-    return prisma.fileUpload.findMany({
-      orderBy: { uploadedAt: 'desc' },
-    });
-  }
+  const result = await prisma.fileUpload.deleteMany({
+    where: { id: { in: fileIds } },
+  });
 
-  /**
-   * Delete multiple files
-   */
-  async deleteMultipleFiles(fileIds: string[], userId: string) {
-    const files = await prisma.fileUpload.findMany({
-      where: { id: { in: fileIds } },
-    });
+  return { deletedCount: result.count };
+};
 
-    // check ownership
-    const invalid = files.some((f) => f.uploadedBy !== userId);
-
-    if (invalid) {
-      throw new AuthenticationError('Not allowed');
-    }
-
-    // delete from disk
-    for (const file of files) {
-      if (fs.existsSync(file.filePath)) {
-        fs.unlinkSync(file.filePath);
-      }
-    }
-
-    const result = await prisma.fileUpload.deleteMany({
-      where: { id: { in: fileIds } },
-    });
-
-    return { deletedCount: result.count };
-  }
-}
-
-export default new FileService();

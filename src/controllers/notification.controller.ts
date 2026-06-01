@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import notificationService from '../services/notification.service.js';
+import * as notificationService from '../services/notification.service.js';
 import { AuthRequest } from '../types/index.js';
 
 /**
